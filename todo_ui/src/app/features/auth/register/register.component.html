@@ -1,0 +1,111 @@
+<div class="flex w-screen flex-wrap text-slate-800">
+    <div class="flex w-full flex-col md:w-1/2">
+        <div class="flex justify-center pt-12 md:justify-start md:pl-12">
+          <a href="#" class="text-2xl font-bold text-blue-600"> ToDoist . </a>
+        </div>
+        <div class="my-28 mx-auto flex flex-col justify-center px-6 pt-8 md:justify-start lg:w-[28rem]">
+          <p class="text-center text-3xl font-bold md:text-left md:leading-tight">Create your ToDoist account</p>
+          <div class="flex items-center justify-center w-full">
+            <button  (click)="googleLogin()" class="-2 mt-8 w-2/4 flex items-center justify-center rounded-md border px-4 py-1 outline-none ring-gray-400 ring-offset-2 transition hover:border hover:border-blue-600 hover:text-blue-500"><img class="mr-2 h-5" heigt="20" width="20" src="/assets/auth/google.svg" alt /> Google</button>
+            <button  (click)="anonymousLogin()" class="-2 mt-8 w-2/4 flex items-center justify-center rounded-md border px-4 py-1 outline-none ring-gray-400 ring-offset-2 transition hover:border hover:border-blue-600 hover:text-blue-500">
+              <span height="20" width="20" class="material-symbols-outlined mr-4">
+                  person_check
+              </span>   
+              Guest User
+          </button>
+          </div>
+          
+          <div class="relative mt-8 flex h-px place-items-center bg-gray-200">
+            <div class="absolute left-1/2 h-6 -translate-x-1/2 bg-white px-4 text-center text-sm text-gray-500">Or use email instead</div>
+          </div>
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col items-stretch pt-3 md:pt-8">
+            <!-- Username Field -->
+            <div class="relative mt-2 w-full">
+              <input 
+                formControlName="username" 
+                type="text" 
+                id="username" 
+                [ngClass]="{'border-red-500': f['username'].touched && f['username'].invalid, 'border-green-500': f['username'].touched && f['username'].valid}" 
+                class="peer block w-full rounded-lg border bg-transparent px-2.5 pt-4 pb-2.5 text-sm focus:outline-none" 
+                placeholder="Username"
+              />
+              <!-- <label for="username" class="absolute left-1 top-2 z-10 px-2 text-sm text-gray-500">Enter Your Username</label> -->
+          
+              <!-- Validation Error Message -->
+              @if (f['username'].touched && f['username'].invalid) {
+                @if (f['username'].errors?.['required']) {
+                  <div class="text-red-500 text-sm">Username is required.</div>
+                } @else if (f['username'].errors?.['minlength']) {
+                  <div class="text-red-500 text-sm">Username must be at least 4 characters long.</div>
+                }
+              }
+            </div>
+          
+            <!-- Email Field -->
+            <div class="relative mt-2 w-full">
+              <input 
+                formControlName="email" 
+                type="text" 
+                id="email" 
+                [ngClass]="{'border-red-500': f['email'].touched && f['email'].invalid, 'border-green-500': f['email'].touched && f['email'].valid}" 
+                class="peer block w-full rounded-lg border bg-transparent px-2.5 pt-4 pb-2.5 text-sm focus:outline-none" 
+                placeholder="Email"
+              />
+              <!-- <label for="email" class="absolute left-1 top-2 z-10 px-2 text-sm text-gray-500">Enter Your Email</label> -->
+          
+              <!-- Validation Error Message -->
+              @if (f['email'].touched && f['email'].invalid) {
+                @if (f['email'].errors?.['required']) {
+                  <div class="text-red-500 text-sm">Email is required.</div>
+                } @else if (f['email'].errors?.['email']) {
+                  <div class="text-red-500 text-sm">Please enter a valid email.</div>
+                }
+              }
+            </div>
+          
+            <!-- Password Field -->
+            <div class="relative mt-2 w-full">
+              <input 
+                formControlName="password" 
+                type="password" 
+                id="password" 
+                [ngClass]="{'border-red-500': f['password'].touched && f['password'].invalid, 'border-green-500': f['password'].touched && f['password'].valid}" 
+                class="peer block w-full rounded-lg border bg-transparent px-2.5 pt-4 pb-2.5 text-sm focus:outline-none" 
+                placeholder="Password"
+              />
+              <!-- <label for="password" class="absolute left-1 top-2 z-10 px-2 text-sm text-gray-500">Enter Your Password</label> -->
+          
+              <!-- Validation Error Message -->
+              @if (f['password'].touched && f['password'].invalid) {
+                @if (f['password'].errors?.['required']) {
+                  <div class="text-red-500 text-sm">Password is required.</div>
+                } @else if (f['password'].errors?.['minlength']) {
+                  <div class="text-red-500 text-sm">Password must be at least 6 characters long.</div>
+                }
+              }
+            </div>
+          
+            <button type="submit" class="mt-6 rounded-lg bg-blue-600 px-4 py-2 text-center text-base font-semibold text-white shadow-md transition hover:bg-blue-700 focus:ring-2 md:w-32">Register</button>
+          </form>
+          
+          
+          
+
+          <p class="mt-6 text-center font-medium md:text-left">
+            Already using ToDoist?
+            <a routerLink="/auth/login" class="whitespace-nowrap font-semibold cursor-pointer text-blue-700">Login here</a>
+          </p>
+        </div>
+      </div>
+    <div class="relative hidden h-screen select-none flex-col justify-center bg-blue-600 text-center md:flex md:w-1/2">
+      <div class="mx-auto py-16 px-8 text-white xl:w-[40rem]">
+        <!-- <span class="rounded-full bg-white px-3 py-1 font-medium text-blue-600">New Feature</span>
+        <p class="my-6 text-3xl font-semibold leading-10">Create animations with <span class="mx-auto block w-56 whitespace-nowrap rounded-lg bg-orange-400 py-2 text-white">drag and drop</span></p>
+        <p class="mb-4">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt necessitatibus nostrum repellendus ab totam.</p>
+        <a href="#" class="font-semibold tracking-wide text-white underline underline-offset-4">Learn More</a> -->
+      </div>
+      <!-- <img class="mx-auto w-11/12 max-w-lg rounded-lg object-cover" src="/images/SoOmmtD2P6rjV76JvJTc6.png" /> -->
+    </div>
+    
+  </div>
+  
