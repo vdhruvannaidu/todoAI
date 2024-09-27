@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
@@ -23,6 +23,7 @@ import { signInAnonymously } from '@angular/fire/auth';
 export class RegisterComponent {
   registerForm!: FormGroup;
   private _auth = inject(AuthserverService);
+  private _router = inject(Router);
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -89,6 +90,8 @@ export class RegisterComponent {
 
       localStorage.setItem('authToken', token); // Store the JWT token
       toast.success('Registration successful');
+      this._router.navigate(['auth/login']);
+
     } catch (error: any) {
       console.error('Error during registration:', error);
       toast.error(error.message || 'An unexpected error occurred.');
