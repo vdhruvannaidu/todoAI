@@ -29,6 +29,60 @@ export  class LoginComponent {
     });
   }
 
+  // onLogin() {
+  //   if (this.loginForm.invalid) {
+  //     this.loginForm.markAllAsTouched();
+  //     return;
+  //   }
+
+  //   const { email, password } = this.loginForm.value;
+    
+  //   this.authService.login(email, password)
+  //   .then(async () => {
+  //     // Get the JWT token after successful login
+  //     const token = await this.authService.getToken();
+  //     console.log('JWT Token:', token); // You can store it or use it as needed
+
+  //     // Redirect to the dashboard after successful login
+  //     this.router.navigate(['/dashboard']);
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //     toast.error('Login failed. Please check your credentials.');
+  //   });
+
+  // }
+  // async googleLogin() {
+  //   try {
+  //     const userCredential = await this.authService.googleLogin(); // Call googleLogin from service
+
+  //     const user = userCredential.user;
+  //     const token = await user.getIdToken();
+
+  //     localStorage.setItem('authToken', token); // Store the JWT token
+  //     toast.success('Google login successful');
+  //   } catch (error: any) {
+  //     console.error('Error during Google login:', error);
+  //     toast.error('Google login failed: ' + error.message);
+  //   }
+  // }
+
+  // async anonymousLogin() {
+  //   try {
+  //     const userCredential = await this.authService.anonymousLogin(); // Call anonymousLogin from service
+
+  //     const user = userCredential.user;
+  //     const token = await user.getIdToken();
+
+  //     localStorage.setItem('authToken', token); // Store the JWT token
+  //     toast.success('Logged in anonymously');
+  //     this.router.navigate(['/dashboard']);
+  //   } catch (error: any) {
+  //     console.error('Error during anonymous login:', error);
+  //     toast.error('Anonymous login failed: ' + error.message);
+  //   }
+  // }
+
   onLogin() {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
@@ -43,24 +97,30 @@ export  class LoginComponent {
       const token = await this.authService.getToken();
       console.log('JWT Token:', token); // You can store it or use it as needed
 
+      // Store token in localStorage or sessionStorage if needed
+      if (token) {
+        localStorage.setItem('authToken', token);
+      }
+
       // Redirect to the dashboard after successful login
       this.router.navigate(['/dashboard']);
+      toast.success('Login successful');
     })
     .catch((error) => {
       console.error(error);
       toast.error('Login failed. Please check your credentials.');
     });
-
   }
+
   async googleLogin() {
     try {
       const userCredential = await this.authService.googleLogin(); // Call googleLogin from service
-
       const user = userCredential.user;
       const token = await user.getIdToken();
 
       localStorage.setItem('authToken', token); // Store the JWT token
       toast.success('Google login successful');
+      this.router.navigate(['/dashboard']); // Redirect to dashboard
     } catch (error: any) {
       console.error('Error during Google login:', error);
       toast.error('Google login failed: ' + error.message);
@@ -71,13 +131,12 @@ export  class LoginComponent {
   async anonymousLogin() {
     try {
       const userCredential = await this.authService.anonymousLogin(); // Call anonymousLogin from service
-
       const user = userCredential.user;
       const token = await user.getIdToken();
 
       localStorage.setItem('authToken', token); // Store the JWT token
       toast.success('Logged in anonymously');
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/dashboard']); // Redirect to dashboard
     } catch (error: any) {
       console.error('Error during anonymous login:', error);
       toast.error('Anonymous login failed: ' + error.message);
