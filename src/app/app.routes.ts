@@ -1,8 +1,6 @@
 import { provideRouter, Routes, withComponentInputBinding } from '@angular/router';
-// import LoginComponent from './features/auth/login/login.component'
-import { DashboardComponent } from './features/dashboard/dashboard/dashboard.component';
-import { authGuard } from './features/auth/auth.guard';
-import { LoginComponent } from './features/auth/login/login.component';
+import { authGuard } from './core/guards/auth.guard';
+// import { noAuthGuard } from './core/guards/no-auth.guard';
 export const routes: Routes = [
 
   {
