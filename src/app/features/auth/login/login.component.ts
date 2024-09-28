@@ -56,25 +56,28 @@ export class LoginComponent {
       toast.success('Login successful');
     } catch (error: any) {
       // Firebase-specific error handling
-      if (error instanceof FirebaseError) {
-        switch (error.code) {
-          case 'auth/user-not-found':
-            toast.error('No user found with this email. Please register.');
-            break;
-          case 'auth/wrong-password':
-            toast.error('Incorrect password. Please try again.');
-            break;
-          case 'auth/too-many-requests':
-            toast.error('Too many failed login attempts. Try again later.');
-            break;
-          default:
-            toast.error('Login failed. Please check your credentials.');
-        }
-      } else {
-        // Handle other errors
-        console.error(error);
-        toast.error('An unexpected error occurred.');
-      }
+
+        console.error('Error during login:', error); // Log the error for   debugging
+        toast.error('Login failed. ' + error.message);
+      // if (error instanceof FirebaseError) {
+      //   switch (error.code) {
+      //     case 'auth/user-not-found':
+      //       toast.error('No user found with this email. Please register.');
+      //       break;
+      //     case 'auth/wrong-password':
+      //       toast.error('Incorrect password. Please try again.');
+      //       break;
+      //     case 'auth/too-many-requests':
+      //       toast.error('Too many failed login attempts. Try again later.');
+      //       break;
+      //     default:
+      //       toast.error(`Login failed: ${error.message || 'Unknown error occurred'}`);
+      //   }
+      // } else {
+      //   // Handle other errors
+      //   console.error(error);
+      //   toast.error('An unexpected error occurred.');
+      // }
     }
   }
 

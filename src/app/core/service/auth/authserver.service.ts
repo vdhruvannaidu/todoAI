@@ -79,9 +79,15 @@ export class AuthserverService {
   async login(email: string, password: string): Promise<void> {
     try {
       const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
-      
+      console.log('User Credential1:', userCredential);
+      console.log('Firebase User1:', userCredential.user);
+      if (!userCredential.user) {
+        throw new Error('Login failed: User data is not available.');
+      }
       // Optionally update user data in Firestore after login
       await this.updateUserDetails(userCredential.user);
+      console.log('User Credential:', userCredential);
+      console.log('Firebase User:', userCredential.user);
       
     } catch (error) {
       this.handleFirebaseErrors(error);
@@ -91,6 +97,10 @@ export class AuthserverService {
 
   // Save user data to Firestore
   private async saveUserData(firebaseUser: FirebaseUser, username: string) {
+
+    if (!firebaseUser || !firebaseUser.uid) {
+      throw new Error('Failed to retrieve user ID for Firestore update.');
+    }
     const userDocRef = doc(this.firestore, `users/${firebaseUser.uid}`);
     
     // Check if the user document already exists to avoid overwriting
