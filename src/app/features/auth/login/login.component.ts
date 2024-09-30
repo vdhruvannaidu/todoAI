@@ -3,7 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { toast } from 'ngx-sonner';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthserverService } from '../../../core/service/auth/authserver.service';
-import { FirebaseError } from '@firebase/util'; // Firebase error handling
+import { FirebaseError } from '@firebase/util'; 
 
 @Component({
   selector: 'app-login',
